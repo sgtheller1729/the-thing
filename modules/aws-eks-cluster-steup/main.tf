@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "us-west-2"  # Change to your desired region
+  region = "ap-northeast-1"  # Change to your desired region
 }
 
 # Create a VPC for the EKS cluster
