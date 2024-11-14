@@ -1,6 +1,6 @@
 # IoT Thing Resources
 resource "aws_iot_thing" "vehicle" {
-  name = "the-thing-app-heller-vehicle-${var.vehicle_id}"
+  name = "sim-app-heller-vehicle-${var.vehicle_id}"
 }
 
 data "aws_iot_certificate" "certificate" {
@@ -9,7 +9,7 @@ data "aws_iot_certificate" "certificate" {
 
 # IoT Policy Resources
 resource "aws_iot_policy" "policy" {
-  name = "the-thing-app-heller-policy-${var.vehicle_id}"
+  name = "sim-app-heller-policy-${var.vehicle_id}"
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -34,14 +34,14 @@ resource "aws_iot_policy" "policy" {
   })
 
   tags = {
-    Name    = "the-thing-app-heller-policy-${var.vehicle_id}"
+    Name    = "sim-app-heller-policy-${var.vehicle_id}"
     Owner   = "Pratham Jangra"
-    Project = "The Thing App Heller, PoC"
+    Project = "Sim App PoC"
   }
 }
 
 data "aws_iot_policy" "policy" {
-  name = "the-thing-app-heller-policy-${var.vehicle_id}"
+  name = "sim-app-heller-policy-${var.vehicle_id}"
 }
 
 # IoT Certificate Resources

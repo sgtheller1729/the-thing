@@ -1,19 +1,19 @@
 # Subnet Group for the Database
 resource "aws_db_subnet_group" "db_subnet_group" {
-  name        = "the-thing-app-heller-db-subnet-group"
+  name        = "sim-app-heller-db-subnet-group"
   description = "Subnet group for the PostgreSQL database"
   subnet_ids  = var.private_subnet_ids
 
   tags = {
-    Name    = "the-thing-app-heller-db-subnet-group"
+    Name    = "sim-app-heller-db-subnet-group"
     Owner   = "Pratham Jangra"
-    Project = "The Thing App Heller, PoC"
+    Project = "Sim App PoC"
   }
 }
 
 # Security Group for Database
 resource "aws_security_group" "db_security_group" {
-  name        = "the-thing-app-heller-db-security-group"
+  name        = "sim-app-heller-db-security-group"
   description = "Allow access to the IoT app database"
   vpc_id      = var.vpc_id
 
@@ -32,15 +32,15 @@ resource "aws_security_group" "db_security_group" {
   }
 
   tags = {
-    Name    = "the-thing-app-heller-db-security-group"
+    Name    = "sim-app-heller-db-security-group"
     Owner   = "Pratham Jangra"
-    Project = "The Thing App Heller, PoC"
+    Project = "Sim App PoC"
   }
 }
 
 # PostgreSQL RDS Instance
 resource "aws_db_instance" "postgres_instance" {
-  identifier             = "the-thing-app-heller-postgres-db"
+  identifier             = "sim-app-heller-postgres-db"
   engine                 = "postgres"
   engine_version         = "16.4"
   instance_class         = "db.t3.micro"
@@ -54,8 +54,8 @@ resource "aws_db_instance" "postgres_instance" {
   db_subnet_group_name   = aws_db_subnet_group.db_subnet_group.name
 
   tags = {
-    Name    = "the-thing-app-heller-postgres-instance"
+    Name    = "sim-app-heller-postgres-instance"
     Owner   = "Pratham Jangra"
-    Project = "The Thing App Heller, PoC"
+    Project = "Sim App PoC"
   }
 }

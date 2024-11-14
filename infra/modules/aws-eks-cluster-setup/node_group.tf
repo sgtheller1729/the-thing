@@ -1,7 +1,7 @@
 # Node Group
 resource "aws_eks_node_group" "node_group" {
   cluster_name    = aws_eks_cluster.eks_cluster.name
-  node_group_name = "the-thing-app-heller-node-group"
+  node_group_name = "sim-app-heller-node-group"
   subnet_ids      = var.private_subnet_ids
   node_role_arn   = data.aws_iam_role.node_role.arn
 
@@ -22,8 +22,8 @@ resource "aws_eks_node_group" "node_group" {
   ]
 
   tags = {
-    Name    = "the-thing-app-heller-node-group"
+    Name    = "sim-app-heller-node-group"
     Owner   = "Pratham Jangra"
-    Project = "The Thing App Heller, PoC"
+    Project = "Sim App PoC"
   }
 }

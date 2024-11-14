@@ -1,6 +1,6 @@
 # IAM Roles and Policies for EKS Cluster
 data "aws_iam_role" "eks_role" {
-  name = "iot-app-jpg-eks-cluster-role"
+  name = "sim-app-heller-eks-cluster-role"
 }
 
 data "aws_iam_policy" "eks_policy" {
@@ -9,7 +9,7 @@ data "aws_iam_policy" "eks_policy" {
 
 # IAM Roles and Policies for Node Group
 data "aws_iam_role" "node_role" {
-  name = "iot-app-jpg-node-group-role"
+  name = "sim-app-heller-node-group-role"
 }
 
 data "aws_iam_policy" "node_policies" {

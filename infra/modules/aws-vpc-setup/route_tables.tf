@@ -9,9 +9,9 @@ resource "aws_route_table" "public_route_table" {
   }
 
   tags = {
-    Name    = "the-thing-app-heller-public-rt"
+    Name    = "sim-app-heller-public-rt"
     Owner   = "Pratham Jangra"
-    Project = "The Thing App Heller, PoC"
+    Project = "Sim App PoC"
   }
 
   depends_on = [aws_internet_gateway.igw]
@@ -35,9 +35,9 @@ resource "aws_route_table" "private_route_table" {
   }
 
   tags = {
-    Name    = "the-thing-app-heller-private-rt"
+    Name    = "sim-app-heller-private-rt"
     Owner   = "Pratham Jangra"
-    Project = "The Thing App Heller, PoC"
+    Project = "Sim App PoC"
   }
 
   depends_on = [aws_nat_gateway.nat_gw]

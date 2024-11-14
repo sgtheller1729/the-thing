@@ -1,10 +1,10 @@
-name: Complete Terraform Lifecycle
+name: Full Terraform Deployment
 
 on:
   workflow_dispatch:
     inputs:
-      operation:
-        description: "Select Action"
+      action:
+        description: "Action to Perform"
         type: choice
         options:
           - Plan
@@ -13,15 +13,16 @@ on:
         required: true
 
 jobs:
-  terraform_deployment:
-    name: Full Infrastructure Deployment
+  terraform:
+    name: Full Terraform Deployment
     runs-on: ubuntu-latest
     defaults:
       run:
         working-directory: ./infra
 
     steps:
-      - name: Configure AWS Access
+      # Step 1: Configure AWS Credentials
+      - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -29,33 +30,42 @@ jobs:
           aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
           aws-region: ${{ vars.AWS_REGION }}
 
-      - name: Retrieve Code
+      # Step 2: Checkout the Code
+      - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Initialize Terraform
+      # Step 3: Set up Terraform
+      - name: Set up Terraform
         uses: hashicorp/setup-terraform@v3
 
-      - name: Generate Terraform Variables
+      # Step 4: Write .tfvars File from GitHub Secrets
+      - name: Write .tfvars File
         run: echo '${{ vars.TFVARS_FILE_JSON }}' > terraform.tfvars.json
 
-      - name: Run Terraform Init
+      # Step 5: Terraform Init
+      - name: Terraform Init
         run: terraform init
 
-      - name: Validate Terraform Formatting
+      # Step 6: Check Terraform Formatting
+      - name: Terraform Format Check
         run: terraform fmt -check -recursive
 
-      - name: Execute Terraform Plan
-        if: ${{ github.event.inputs.operation == 'Plan' || github.event.inputs.operation == 'Apply' }}
+      # Step 7: Terraform Plan (Plan or Apply)
+      - name: Terraform Plan
+        if: ${{ github.event.inputs.action == 'Plan' || github.event.inputs.action == 'Apply' }}
         run: terraform plan -var-file=terraform.tfvars.json -input=false
 
-      - name: Apply Terraform Changes
-        if: ${{ github.event.inputs.operation == 'Apply' }}
+      # Step 8: Terraform Apply (Apply Only)
+      - name: Terraform Apply
+        if: ${{ github.event.inputs.action == 'Apply' }}
         run: terraform apply -var-file=terraform.tfvars.json -auto-approve -input=false
 
-      - name: Preview Terraform Destroy
-        if: ${{ github.event.inputs.operation == 'Destroy' }}
+      # Step 9: Terraform Plan (Destroy Only)
+      - name: Terraform Plan (Destroy)
+        if: ${{ github.event.inputs.action == 'Destroy' }}
         run: terraform plan -destroy -var-file=terraform.tfvars.json -input=false
 
-      - name: Execute Terraform Destroy
-        if: ${{ github.event.inputs.operation == 'Destroy' }}
+      # Step 10: Terraform Destroy (Destroy Only)
+      - name: Terraform Destroy
+        if: ${{ github.event.inputs.action == 'Destroy' }}
         run: terraform apply -destroy -var-file=terraform.tfvars.json -auto-approve

@@ -1,10 +1,10 @@
-version = 0.1
+version = 0.2
 [default.deploy.parameters]
-stack_name = "InternIoTPoC-backend"
+stack_name = "heller-poc"
 resolve_s3 = true
-s3_prefix = "InternIoTPoC-backend"
-region = "ap-northeast-1"
+s3_prefix = "heller-poc"
+region = "ap-northeast-1"  # Update this if you need a different region
 confirm_changeset = true
 capabilities = "CAPABILITY_IAM"
-parameter_overrides = "S3BucketName=\"intern-iot-poc-tf-backend\" DynamoDBTableName=\"InternIoTPoCTerraformLocks\""
+parameter_overrides = "S3BucketName=\"heller-poc-s3-bucket\" DynamoDBTableName=\"HellerPoCTerraformLocks\""
 image_repositories = []

@@ -1,6 +1,6 @@
 # Security Group for EKS Cluster
 resource "aws_security_group" "eks_cluster_sg" {
-  name        = "iot-app-jpg-eks-cluster-sg"
+  name        = "sim-app-heller-eks-cluster-sg"
   description = "Security group for EKS cluster"
   vpc_id      = var.vpc_id
 
@@ -19,15 +19,15 @@ resource "aws_security_group" "eks_cluster_sg" {
   }
 
   tags = {
-    Name    = "iot-app-jpg-eks-cluster-sg"
+    Name    = "sim-app-heller-eks-cluster-sg"
     Owner   = "Pratham Jangra"
-    Project = "The Thing App Heller, PoC"
+    Project = "Sim App PoC"
   }
 }
 
 # Security Group for Node Group
 resource "aws_security_group" "node_group_sg" {
-  name        = "iot-app-jpg-node-group-sg"
+  name        = "sim-app-heller-node-group-sg"
   description = "Security group for EKS node group"
   vpc_id      = var.vpc_id
 
@@ -46,8 +46,8 @@ resource "aws_security_group" "node_group_sg" {
   }
 
   tags = {
-    Name    = "iot-app-jpg-node-group-sg"
+    Name    = "sim-app-heller-node-group-sg"
     Owner   = "Pratham Jangra"
-    Project = "The Thing App Heller, PoC"
+    Project = "Sim App PoC"
   }
 }

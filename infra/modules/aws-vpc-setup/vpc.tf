@@ -5,8 +5,8 @@ resource "aws_vpc" "vpc" {
   enable_dns_hostnames = true
 
   tags = {
-    Name    = "the-thing-app-heller-vpc"
+    Name    = "sim-app-heller-vpc"
     Owner   = "Pratham Jangra"
-    Project = "The Thing App Heller, PoC"
+    Project = "Sim App PoC"
   }
 }

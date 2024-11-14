@@ -10,9 +10,9 @@ resource "aws_subnet" "public_subnets" {
   map_public_ip_on_launch = true
 
   tags = {
-    Name    = "the-thing-app-heller-public-subnet-${index(var.public_subnet_cidrs, each.value)}"
+    Name    = "sim-app-heller-public-subnet-${index(var.public_subnet_cidrs, each.value)}"
     Owner   = "Pratham Jangra"
-    Project = "The Thing App Heller, PoC"
+    Project = "Sim App PoC"
   }
 
   depends_on = [aws_vpc.vpc]
@@ -26,9 +26,9 @@ resource "aws_subnet" "private_subnets" {
   availability_zone = element(data.aws_availability_zones.available.names, index(var.private_subnet_cidrs, each.value))
 
   tags = {
-    Name    = "the-thing-app-heller-private-subnet-${index(var.private_subnet_cidrs, each.value)}"
+    Name    = "sim-app-heller-private-subnet-${index(var.private_subnet_cidrs, each.value)}"
     Owner   = "Pratham Jangra"
-    Project = "The Thing App Heller, PoC"
+    Project = "Sim App PoC"
   }
 
   depends_on = [aws_vpc.vpc]

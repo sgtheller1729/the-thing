@@ -1,6 +1,6 @@
 # EKS Cluster
 resource "aws_eks_cluster" "eks_cluster" {
-  name     = "iot-app-jpg-eks-cluster"
+  name     = "sim-app-heller-eks-cluster"
   role_arn = data.aws_iam_role.eks_role.arn
 
   vpc_config {
@@ -14,8 +14,8 @@ resource "aws_eks_cluster" "eks_cluster" {
   ]
 
   tags = {
-    Name    = "iot-app-jpg-eks-cluster"
-    Owner   = "Juan Pablo Gutiérrez"
-    Project = "IoT App PoC"
+    Name    = "sim-app-heller-eks-cluster"
+    Owner   = "Pratham Jangra"
+    Project = "Sim App PoC"
   }
 }
