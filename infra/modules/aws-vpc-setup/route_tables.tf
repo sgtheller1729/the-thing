@@ -9,7 +9,7 @@ resource "aws_route_table" "public_route_table" {
   }
 
   tags = {
-    Name    = "iot-app-jpg-public-rt"
+    Name    = "the-thing-app-heller-public-rt"
     Owner   = "Pratham Jangra"
     Project = "The Thing App Heller, PoC"
   }
@@ -35,7 +35,7 @@ resource "aws_route_table" "private_route_table" {
   }
 
   tags = {
-    Name    = "iot-app-jpg-private-rt"
+    Name    = "the-thing-app-heller-private-rt"
     Owner   = "Pratham Jangra"
     Project = "The Thing App Heller, PoC"
   }
