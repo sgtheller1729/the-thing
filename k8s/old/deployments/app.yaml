@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: iot-app-jpg-deployment
+  labels:
+    app: iot-app-jpg
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: iot-app-jpg
+  template:
+    metadata:
+      labels:
+        app: iot-app-jpg
+    spec:
+      containers:
+        - name: iot-app-jpg
+          image: 618889213523.dkr.ecr.ap-northeast-1.amazonaws.com/iot-app-jpg:latest
+          ports:
+            - containerPort: 1883

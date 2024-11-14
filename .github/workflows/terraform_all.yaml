@@ -1,0 +1,61 @@
+name: Complete Terraform Lifecycle
+
+on:
+  workflow_dispatch:
+    inputs:
+      operation:
+        description: "Select Action"
+        type: choice
+        options:
+          - Plan
+          - Apply
+          - Destroy
+        required: true
+
+jobs:
+  terraform_deployment:
+    name: Full Infrastructure Deployment
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./infra
+
+    steps:
+      - name: Configure AWS Access
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-session-token: ${{ secrets.AWS_SESSION_TOKEN }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Retrieve Code
+        uses: actions/checkout@v4
+
+      - name: Initialize Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Generate Terraform Variables
+        run: echo '${{ vars.TFVARS_FILE_JSON }}' > terraform.tfvars.json
+
+      - name: Run Terraform Init
+        run: terraform init
+
+      - name: Validate Terraform Formatting
+        run: terraform fmt -check -recursive
+
+      - name: Execute Terraform Plan
+        if: ${{ github.event.inputs.operation == 'Plan' || github.event.inputs.operation == 'Apply' }}
+        run: terraform plan -var-file=terraform.tfvars.json -input=false
+
+      - name: Apply Terraform Changes
+        if: ${{ github.event.inputs.operation == 'Apply' }}
+        run: terraform apply -var-file=terraform.tfvars.json -auto-approve -input=false
+
+      - name: Preview Terraform Destroy
+        if: ${{ github.event.inputs.operation == 'Destroy' }}
+        run: terraform plan -destroy -var-file=terraform.tfvars.json -input=false
+
+      - name: Execute Terraform Destroy
+        if: ${{ github.event.inputs.operation == 'Destroy' }}
+        run: terraform apply -destroy -var-file=terraform.tfvars.json -auto-approve
