@@ -12,7 +12,7 @@ resource "docker_image" "base_image" {
 resource "docker_image" "app_image" {
   name = "sim-app-heller:latest"
   build {
-    context  = "${path.root}/../spring-app/simulator"
+    context  = "${path.root}/../simulator"
     platform = "linux/amd64"
   }
 }
