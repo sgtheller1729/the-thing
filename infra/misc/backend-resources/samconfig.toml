@@ -1,0 +1,10 @@
+version = 0.2
+[default.deploy.parameters]
+stack_name = "heller-poc"
+resolve_s3 = true
+s3_prefix = "heller-poc"
+region = "ap-northeast-1"  # Update this if you need a different region
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+parameter_overrides = "S3BucketName=\"heller-poc-s3-bucket\" DynamoDBTableName=\"HellerPoCTerraformLocks\""
+image_repositories = []

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MQTT Simulator Dashboard</title>
+    <style> /* styles here */ </style>
+</head>
+<body>
+    <h1>MQTT Simulator Dashboard</h1>
+    <div id="log">Loading...</div>
+    <script>
+        const logContainer = document.getElementById('log');
+        async function fetchActivity() {
+            const response = await fetch('/simulator/activity');
+            const data = await response.json();
+            logContainer.innerHTML = JSON.stringify(data);
+        }
+        const ws = new WebSocket(`ws://${location.host}/ws`);
+        ws.onmessage = (event) => { logContainer.innerHTML = event.data; };
+        fetchActivity();
+    </script>
+</body>
+</html>
